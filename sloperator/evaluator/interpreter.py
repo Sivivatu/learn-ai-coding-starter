@@ -174,7 +174,7 @@ class Interpreter:
             case TokenType.STAR:
                 return left * right
             case TokenType.SLASH:
-                return left // right
+                return truncating_divide(left, right)
             case TokenType.LESS:
                 return left < right
             case TokenType.LESS_EQUAL:
@@ -240,6 +240,12 @@ class Interpreter:
             raise SlopRuntimeError(line, "hallucinate expects 1 argument")
         self.out.write(stringify(arguments[0]) + "\n")
         return None
+
+
+def truncating_divide(left: int, right: int) -> int:
+    """Divide integers, truncating toward zero as the spec requires."""
+    quotient = abs(left) // abs(right)
+    return quotient if (left < 0) == (right < 0) else -quotient
 
 
 def is_number(value: Value) -> TypeIs[int]:
