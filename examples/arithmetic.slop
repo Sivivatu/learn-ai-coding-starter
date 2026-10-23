@@ -1,0 +1,2 @@
+— Arithmetic: multiplication binds tighter than addition, so this is 1 + 6.
+hallucinate(1 + 2 * 3)✨
